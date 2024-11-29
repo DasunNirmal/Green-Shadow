@@ -1,6 +1,8 @@
-package lk.ijse.greenshadow.entity;
+package lk.ijse.greenshadow.entity.impl;
 
 import jakarta.persistence.*;
+import lk.ijse.greenshadow.entity.Role;
+import lk.ijse.greenshadow.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
