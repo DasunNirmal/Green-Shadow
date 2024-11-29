@@ -13,7 +13,12 @@ import lombok.NoArgsConstructor;
 public class VehicleEntity implements SuperEntity {
     @Id
     private String vehicle_code;
+    private String license_plate;
+    private String fuel_type;
     private String role;
+    private String remarks;
+    private String vehicle_category;
+    private String status;
     private String first_name;
     private String phone_no;
     private String email;
