@@ -1,9 +1,10 @@
-package lk.ijse.greenshadow.entity;
+package lk.ijse.greenshadow.entity.impl;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lk.ijse.greenshadow.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
