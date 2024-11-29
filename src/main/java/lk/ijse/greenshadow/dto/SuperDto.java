@@ -1,4 +1,4 @@
-package lk.ijse.greenshadow.dto.impl;
+package lk.ijse.greenshadow.dto;
 
 public interface SuperDto {
 }
