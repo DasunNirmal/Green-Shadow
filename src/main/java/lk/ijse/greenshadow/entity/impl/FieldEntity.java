@@ -1,6 +1,7 @@
-package lk.ijse.greenshadow.entity;
+package lk.ijse.greenshadow.entity.impl;
 
 import jakarta.persistence.*;
+import lk.ijse.greenshadow.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class FieldEntity implements SuperEntity {
     @Id
     private String field_code;
     private String field_name;
-    private Point field_location;
+    private String field_location;
     private double extent_size;
     @Column(columnDefinition = "LONGTEXT")
     private String img_01;
