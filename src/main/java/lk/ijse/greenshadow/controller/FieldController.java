@@ -1,6 +1,7 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.service.FieldService;
 import lk.ijse.greenshadow.utill.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,17 @@ public class FieldController {
     @GetMapping(value = "/{field_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public FieldDtoImpl searchCustomersByID(@PathVariable("field_code") String fieldCode) {
         return fieldService.getFieldsByID(fieldCode);
+    }
+
+    @DeleteMapping(value = "/{field_code}")
+    public ResponseEntity<Void> deleteField(@PathVariable("field_code") String fieldCode) {
+        try {
+            fieldService.deleteField(fieldCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (FieldNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
