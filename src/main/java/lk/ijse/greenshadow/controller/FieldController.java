@@ -62,4 +62,24 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PatchMapping(value = "/{field_code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateFields(@RequestPart("fieldName") String fieldName, @RequestPart("fieldLocation") String fieldLocation, @RequestPart("fieldSize") String fieldSize,
+                                           @RequestPart("image_01") MultipartFile image_01,
+                                           @RequestPart("image_02") MultipartFile image_02,@PathVariable("field_code") String fieldID) {
+        String base67FieldImg01 = "";
+        String base67FieldImg02 = "";
+
+        try {
+            byte[] image01Bytes = image_01.getBytes();
+            base67FieldImg01 = AppUtil.imageToBase64(image01Bytes);
+            byte[] image02Bytes = image_02.getBytes();
+            base67FieldImg02 = AppUtil.imageToBase64(image02Bytes);
+
+            fieldService.updateFields(fieldID,fieldName,fieldLocation,fieldSize,base67FieldImg01,base67FieldImg02);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
