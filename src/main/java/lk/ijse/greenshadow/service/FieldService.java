@@ -9,4 +9,5 @@ public interface FieldService {
     List<FieldDtoImpl> loadAllFields();
     FieldDtoImpl getFieldsByID(String fieldCode);
     void deleteField(String fieldCode);
+    void updateFields(String fieldID, String fieldName, String fieldLocation, String fieldSize, String base67FieldImg01, String base67FieldImg02);
 }
