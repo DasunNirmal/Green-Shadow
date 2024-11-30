@@ -4,6 +4,7 @@ import lk.ijse.greenshadow.dao.FieldDao;
 import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.service.FieldService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,7 +49,17 @@ public class FieldServiceImpl implements FieldService {
             FieldEntity field = fieldDao.getReferenceById(fieldCode);
             return mapping.toFieldDto(field);
         }else {
-            throw new DataPersistException("Field not found");
+            throw new FieldNotFoundException("Field not found");
+        }
+    }
+
+    @Override
+    public void deleteField(String fieldCode) {
+        Optional<FieldEntity> fieldFound = fieldDao.findById(fieldCode);
+        if (fieldFound.isEmpty()) {
+            throw new FieldNotFoundException("Field not found");
+        } else {
+            fieldDao.deleteById(fieldCode);
         }
     }
 }
