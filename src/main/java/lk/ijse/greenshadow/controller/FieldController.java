@@ -44,4 +44,9 @@ public class FieldController {
     public List<FieldDtoImpl> getAllFields() {
         return fieldService.loadAllFields();
     }
+
+    @GetMapping(value = "/{field_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public FieldDtoImpl searchCustomersByID(@PathVariable("field_code") String fieldCode) {
+        return fieldService.getFieldsByID(fieldCode);
+    }
 }
