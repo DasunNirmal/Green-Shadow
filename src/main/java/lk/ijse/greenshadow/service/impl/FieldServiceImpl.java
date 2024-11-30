@@ -40,4 +40,14 @@ public class FieldServiceImpl implements FieldService {
     public List<FieldDtoImpl> loadAllFields() {
         return mapping.toAllFields(fieldDao.findAll());
     }
+
+    @Override
+    public FieldDtoImpl getFieldsByID(String fieldCode) {
+        if (fieldDao.existsById(fieldCode)) {
+            FieldEntity field = fieldDao.getReferenceById(fieldCode);
+            return mapping.toFieldDto(field);
+        }else {
+            throw new DataPersistException("Field not found");
+        }
+    }
 }
