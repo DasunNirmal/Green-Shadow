@@ -8,4 +8,5 @@ public interface FieldService {
     void saveFields(String fieldID, String fieldName, String fieldLocation, String fieldSize, String base67FieldImg01, String base67FieldImg02);
     List<FieldDtoImpl> loadAllFields();
     FieldDtoImpl getFieldsByID(String fieldCode);
+    void deleteField(String fieldCode);
 }
