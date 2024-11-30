@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class FieldServiceImpl implements FieldService {
@@ -32,5 +34,10 @@ public class FieldServiceImpl implements FieldService {
         if (saved == null) {
             throw new DataPersistException("Failed to save field");
         }
+    }
+
+    @Override
+    public List<FieldDtoImpl> loadAllFields() {
+        return mapping.toAllFields(fieldDao.findAll());
     }
 }
