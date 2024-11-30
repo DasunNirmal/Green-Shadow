@@ -1,14 +1,14 @@
 package lk.ijse.greenshadow.exception;
 
-public class CustomerNotFoundException extends RuntimeException {
+public class FieldNotFoundException extends RuntimeException {
 
-    public CustomerNotFoundException() {
-
-    }
-    public CustomerNotFoundException(String message) {
+    public FieldNotFoundException() {
 
     }
-    public CustomerNotFoundException(String message, Throwable cause) {
+    public FieldNotFoundException(String message) {
+
+    }
+    public FieldNotFoundException(String message, Throwable cause) {
 
     }
 }
