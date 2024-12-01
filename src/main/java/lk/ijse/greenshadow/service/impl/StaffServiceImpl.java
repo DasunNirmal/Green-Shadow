@@ -1,4 +1,28 @@
 package lk.ijse.greenshadow.service.impl;
 
-public class StaffServiceImpl {
+import lk.ijse.greenshadow.dao.StaffDao;
+import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
+import lk.ijse.greenshadow.entity.impl.StaffEntity;
+import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.service.StaffService;
+import lk.ijse.greenshadow.utill.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class StaffServiceImpl implements StaffService {
+    @Autowired
+    private StaffDao staffDao;
+    @Autowired
+    private Mapping mapping;
+
+    @Override
+    public void saveStaff(StaffDtoImpl staffDto) {
+        StaffEntity save = staffDao.save(mapping.toStaffEntity(staffDto));
+        if (save == null) {
+            throw new DataPersistException("Save Staff Failed");
+        }
+    }
 }
