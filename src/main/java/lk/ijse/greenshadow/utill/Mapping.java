@@ -1,7 +1,9 @@
 package lk.ijse.greenshadow.utill;
 
+import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
+import lk.ijse.greenshadow.entity.impl.CropEntity;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.entity.impl.StaffEntity;
 import org.modelmapper.ModelMapper;
@@ -27,6 +29,17 @@ public class Mapping {
         return modelMapper.map(fieldEntityList, new TypeToken<List<FieldDtoImpl>>() {}.getType());
     }
 
+    /*for crop mapping*/
+    public CropEntity toCropEntity(CropDtoImpl cropDto) {
+        return modelMapper.map(cropDto, CropEntity.class);
+    }
+    public CropDtoImpl toCropDto(CropEntity cropEntity) {
+        return modelMapper.map(cropEntity, CropDtoImpl.class);
+    }
+    public List<CropDtoImpl> toAllCrops(List<CropEntity> cropEntityList) {
+        return modelMapper.map(cropEntityList, new TypeToken<List<CropDtoImpl>>() {}.getType());
+    }
+
     /*for staff mapping*/
     public StaffEntity toStaffEntity(StaffDtoImpl staffDto) {
         return modelMapper.map(staffDto, StaffEntity.class);
@@ -34,6 +47,7 @@ public class Mapping {
     public StaffDtoImpl toStaffDto(StaffEntity staffEntity) {
         return modelMapper.map(staffEntity, StaffDtoImpl.class);
     }
+
     public List<StaffDtoImpl> toAllStaffs(List<StaffEntity> staffEntityList) {
         return modelMapper.map(staffEntityList, new TypeToken<List<StaffDtoImpl>>() {}.getType());
     }
