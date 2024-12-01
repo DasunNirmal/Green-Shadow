@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.service.impl;
 import lk.ijse.greenshadow.dao.CropDao;
 import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.entity.impl.CropEntity;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.service.CropService;
 import lk.ijse.greenshadow.utill.Mapping;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -33,6 +35,16 @@ public class CropServiceImpl implements CropService {
     @Override
     public List<CropDtoImpl> loadAllCrops() {
         return mapping.toAllCrops(cropDao.findAll());
+    }
+
+    @Override
+    public void deleteCrop(String cropCode) {
+        Optional<CropEntity> cropFound = cropDao.findById(cropCode);
+        if (cropFound.isEmpty()) {
+            throw new CropNotFoundException("Crop not found");
+        } else {
+            cropDao.deleteById(cropCode);
+        }
     }
 
     private CropDtoImpl getCropDto(String cropCode, String commonName, String scientificName, String category, String base67FieldImg, String season, String field_code) {
