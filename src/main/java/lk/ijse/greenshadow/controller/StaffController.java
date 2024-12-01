@@ -43,6 +43,18 @@ public class StaffController {
         return staffService.getStaffByID(staffID);
     }
 
+    @PatchMapping(value = "/{staff_id}")
+    public ResponseEntity<Void> updateStaff(@PathVariable("staff_id") String staffID, @RequestBody StaffDtoImpl staffDto) {
+        try {
+            staffService.updateStaff(staffID, staffDto);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (StaffNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping(value = "/{staff_id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable("staff_id") String staffID) {
         try {
