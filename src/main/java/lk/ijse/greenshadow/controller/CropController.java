@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.service.CropService;
 import lk.ijse.greenshadow.utill.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
@@ -33,5 +35,10 @@ public class CropController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropDtoImpl> getAllCrops() {
+        return cropService.loadAllCrops();
     }
 }
