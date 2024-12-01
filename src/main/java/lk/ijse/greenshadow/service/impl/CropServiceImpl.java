@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CropServiceImpl implements CropService {
@@ -26,6 +28,11 @@ public class CropServiceImpl implements CropService {
         if (save == null) {
             throw new DataPersistException("Failed to save crop");
         }
+    }
+
+    @Override
+    public List<CropDtoImpl> loadAllCrops() {
+        return mapping.toAllCrops(cropDao.findAll());
     }
 
     private CropDtoImpl getCropDto(String cropCode, String commonName, String scientificName, String category, String base67FieldImg, String season, String field_code) {
