@@ -1,4 +1,7 @@
 package lk.ijse.greenshadow.service;
 
-public class StaffService {
+import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
+
+public interface StaffService {
+    void saveStaff(StaffDtoImpl staffDto);
 }
