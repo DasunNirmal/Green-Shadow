@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class StaffServiceImpl implements StaffService {
@@ -24,5 +26,10 @@ public class StaffServiceImpl implements StaffService {
         if (save == null) {
             throw new DataPersistException("Save Staff Failed");
         }
+    }
+
+    @Override
+    public List<StaffDtoImpl> loadAllStaff() {
+        return mapping.toAllStaffs(staffDao.findAll());
     }
 }
