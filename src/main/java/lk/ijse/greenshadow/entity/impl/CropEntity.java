@@ -19,6 +19,7 @@ public class CropEntity implements SuperEntity {
     private String common_name;
     private String scientific_name;
     private String category;
+    @Column(columnDefinition = "LONGTEXT")
     private String img;
     private String season;
     @ManyToOne
