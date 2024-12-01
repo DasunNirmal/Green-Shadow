@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
 @RequestMapping("api/v1/staff")
@@ -27,5 +29,10 @@ public class StaffController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StaffDtoImpl> getAllStaff() {
+        return staffService.loadAllStaff();
     }
 }
