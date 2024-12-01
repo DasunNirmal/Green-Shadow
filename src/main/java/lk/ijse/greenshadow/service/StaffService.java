@@ -9,4 +9,5 @@ public interface StaffService {
     List<StaffDtoImpl> loadAllStaff();
     void deleteStaff(String staffID);
     StaffDtoImpl getStaffByID(String staffID);
+    void updateStaff(String staffID, StaffDtoImpl staffDto);
 }
