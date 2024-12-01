@@ -53,4 +53,26 @@ public class StaffServiceImpl implements StaffService {
             throw new StaffNotFoundException("Staff Not Found");
         }
     }
+
+    @Override
+    public void updateStaff(String staffID, StaffDtoImpl staffDto) {
+        Optional<StaffEntity> staff = staffDao.findById(staffID);
+        if (staff.isPresent()) {
+            staff.get().setFirst_name(staffDto.getFirst_name());
+            staff.get().setLast_name(staffDto.getLast_name());
+            staff.get().setDesignation(staffDto.getDesignation());
+            staff.get().setEmail(staffDto.getEmail());
+            staff.get().setRole(staffDto.getRole());
+            staff.get().setGender(staffDto.getGender());
+            staff.get().setJoined_date(staffDto.getJoined_date());
+            staff.get().setDob(staffDto.getDob());
+            staff.get().setAddress_01(staffDto.getAddress_01());
+            staff.get().setAddress_02(staffDto.getAddress_02());
+            staff.get().setAddress_03(staffDto.getAddress_03());
+            staff.get().setAddress_04(staffDto.getAddress_04());
+            staff.get().setAddress_05(staffDto.getAddress_05());
+            staff.get().setPhone_no(staffDto.getPhone_no());
+            staff.get().setStaff_id(staffDto.getStaff_id());
+        }
+    }
 }
