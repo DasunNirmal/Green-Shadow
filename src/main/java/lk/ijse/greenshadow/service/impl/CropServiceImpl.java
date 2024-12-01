@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.service.impl;
 import lk.ijse.greenshadow.dao.CropDao;
 import lk.ijse.greenshadow.dao.FieldDao;
 import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
+import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
 import lk.ijse.greenshadow.entity.impl.CropEntity;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
@@ -69,6 +70,16 @@ public class CropServiceImpl implements CropService {
             } else {
                 throw new FieldNotFoundException("Field not found");
             }
+        }
+    }
+
+    @Override
+    public CropDtoImpl getCropByID(String cropCode) {
+        if (cropDao.existsById(cropCode)) {
+            CropEntity crop = cropDao.getReferenceById(cropCode);
+            return mapping.toCropDto(crop);
+        } else {
+            throw new CropNotFoundException("Crop not found");
         }
     }
 
