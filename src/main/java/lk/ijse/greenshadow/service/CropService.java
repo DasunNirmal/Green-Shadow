@@ -1,13 +1,5 @@
 package lk.ijse.greenshadow.service;
 
-import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
-
-import java.util.List;
-
 public interface CropService {
-    void saveFields(String fieldID, String fieldName, String fieldLocation, String fieldSize, String base67FieldImg01, String base67FieldImg02);
-    List<FieldDtoImpl> loadAllFields();
-    FieldDtoImpl getFieldsByID(String fieldCode);
-    void deleteField(String fieldCode);
-    void updateFields(String fieldID, String fieldName, String fieldLocation, String fieldSize, String base67FieldImg01, String base67FieldImg02);
+    void saveCrops(String cropCode, String commonName, String scientificName, String category, String base67FieldImg, String season, String field_code);
 }
