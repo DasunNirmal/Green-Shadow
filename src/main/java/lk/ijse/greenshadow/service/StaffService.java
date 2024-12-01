@@ -7,4 +7,5 @@ import java.util.List;
 public interface StaffService {
     void saveStaff(StaffDtoImpl staffDto);
     List<StaffDtoImpl> loadAllStaff();
+    void deleteStaff(String staffID);
 }
