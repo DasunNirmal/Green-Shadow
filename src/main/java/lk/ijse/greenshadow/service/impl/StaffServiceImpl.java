@@ -43,4 +43,14 @@ public class StaffServiceImpl implements StaffService {
         }
         staffDao.deleteById(staffID);
     }
+
+    @Override
+    public StaffDtoImpl getStaffByID(String staffID) {
+        if (staffDao.existsById(staffID)) {
+            StaffEntity staff = staffDao.getReferenceById(staffID);
+            return mapping.toStaffDto(staff);
+        } else {
+            throw new StaffNotFoundException("Staff Not Found");
+        }
+    }
 }
