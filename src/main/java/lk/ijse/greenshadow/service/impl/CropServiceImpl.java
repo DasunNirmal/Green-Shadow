@@ -1,10 +1,13 @@
 package lk.ijse.greenshadow.service.impl;
 
 import lk.ijse.greenshadow.dao.CropDao;
+import lk.ijse.greenshadow.dao.FieldDao;
 import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.entity.impl.CropEntity;
+import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.service.CropService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import java.util.Optional;
 public class CropServiceImpl implements CropService {
     @Autowired
     private CropDao cropDao;
+    @Autowired
+    private FieldDao fieldDao;
     @Autowired
     private Mapping mapping;
 
@@ -44,6 +49,26 @@ public class CropServiceImpl implements CropService {
             throw new CropNotFoundException("Crop not found");
         } else {
             cropDao.deleteById(cropCode);
+        }
+    }
+
+    @Override
+    public void updateCrops(String cropCode, String commonName, String scientificName, String category, String base67FieldImg, String season, String fieldCode) {
+        CropDtoImpl dto = getCropDto(cropCode, commonName, scientificName, category, base67FieldImg, season, fieldCode);
+        Optional<CropEntity> crop = cropDao.findById(cropCode);
+        if (crop.isPresent()) {
+            crop.get().setCommon_name(dto.getCommon_name());
+            crop.get().setScientific_name(dto.getScientific_name());
+            crop.get().setCategory(dto.getCategory());
+            crop.get().setImg(dto.getImg());
+            crop.get().setSeason(dto.getSeason());
+
+            Optional<FieldEntity> field = fieldDao.findById(fieldCode);
+            if (field.isPresent()) {
+                crop.get().setField(field.get());
+            } else {
+                throw new FieldNotFoundException("Field not found");
+            }
         }
     }
 
