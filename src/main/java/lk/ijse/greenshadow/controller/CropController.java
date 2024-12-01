@@ -1,6 +1,8 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.service.CropService;
 import lk.ijse.greenshadow.utill.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +42,17 @@ public class CropController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropDtoImpl> getAllCrops() {
         return cropService.loadAllCrops();
+    }
+
+    @DeleteMapping(value = "/{crop_code}")
+    public ResponseEntity<Void> deleteCrops(@PathVariable("crop_code") String cropCode) {
+        try {
+            cropService.deleteCrop(cropCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (CropNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
