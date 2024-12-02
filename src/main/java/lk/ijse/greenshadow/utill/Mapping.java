@@ -3,8 +3,10 @@ package lk.ijse.greenshadow.utill;
 import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
+import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
 import lk.ijse.greenshadow.entity.impl.CropEntity;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
+import lk.ijse.greenshadow.entity.impl.FieldStaffDetailsEntity;
 import lk.ijse.greenshadow.entity.impl.StaffEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -47,8 +49,18 @@ public class Mapping {
     public StaffDtoImpl toStaffDto(StaffEntity staffEntity) {
         return modelMapper.map(staffEntity, StaffDtoImpl.class);
     }
-
     public List<StaffDtoImpl> toAllStaffs(List<StaffEntity> staffEntityList) {
         return modelMapper.map(staffEntityList, new TypeToken<List<StaffDtoImpl>>() {}.getType());
+    }
+
+    /*for staff and fields details mapping*/
+    public FieldStaffDetailsEntity toStaffFiledDetailsEntity(StaffFiledDtoImpl staffFiledDto) {
+        return modelMapper.map(staffFiledDto, FieldStaffDetailsEntity.class);
+    }
+    public StaffFiledDtoImpl toStaffFiledDetailsDto(FieldStaffDetailsEntity detailsEntity) {
+        return modelMapper.map(detailsEntity, StaffFiledDtoImpl.class);
+    }
+    public List<StaffFiledDtoImpl> toAllStaffFiledDetails(List<FieldStaffDetailsEntity> detailsEntities) {
+        return modelMapper.map(detailsEntities, new TypeToken<List<StaffFiledDtoImpl>>() {}.getType());
     }
 }
