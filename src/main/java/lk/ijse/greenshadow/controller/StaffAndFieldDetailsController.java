@@ -1,6 +1,5 @@
 package lk.ijse.greenshadow.controller;
 
-import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
@@ -36,6 +35,11 @@ public class StaffAndFieldDetailsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StaffFiledDtoImpl> getAllStaff() {
         return staffAndFieldDetailsService.loadAllStaffDetails();
+    }
+
+    @GetMapping(value = "/{staff_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StaffFiledDtoImpl searchStaffByID(@PathVariable("staff_id") String staffID) {
+        return staffAndFieldDetailsService.getDetailsByID(staffID);
     }
 
     @DeleteMapping(value = "/{staff_id}")
