@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class StaffDtoImpl  implements SuperDto, StaffStatus {
+public class StaffDtoImpl implements SuperDto, StaffStatus {
     private String staff_id;
     private String first_name;
     private String last_name;
