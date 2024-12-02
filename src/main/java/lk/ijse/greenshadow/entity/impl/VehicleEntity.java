@@ -23,7 +23,7 @@ public class VehicleEntity implements SuperEntity {
     private String first_name;
     private String phone_no;
     private String email;
-    @ManyToOne
-    @JoinColumn(name = "staff_id",nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "staff_id",nullable = true)
     private StaffEntity staff;
 }
