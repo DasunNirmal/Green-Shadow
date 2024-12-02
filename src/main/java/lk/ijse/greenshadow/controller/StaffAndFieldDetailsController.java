@@ -2,6 +2,7 @@ package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.StaffNotFoundException;
 import lk.ijse.greenshadow.service.StaffAndFieldDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,17 @@ public class StaffAndFieldDetailsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StaffFiledDtoImpl> getAllStaff() {
         return staffAndFieldDetailsService.loadAllStaffDetails();
+    }
+
+    @DeleteMapping(value = "/{staff_id}")
+    public ResponseEntity<Void> deleteDetails(@PathVariable("staff_id") String details_id) {
+        try {
+            staffAndFieldDetailsService.deleteDetails(details_id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (StaffNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
