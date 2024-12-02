@@ -8,4 +8,5 @@ public interface StaffAndFieldDetailsService {
     void saveDetails(StaffFiledDtoImpl staffFiledDto);
     List<StaffFiledDtoImpl> loadAllStaffDetails();
     void deleteDetails(String detailsId);
+    void updateDetails(String detailsID, StaffFiledDtoImpl detailsDto);
 }
