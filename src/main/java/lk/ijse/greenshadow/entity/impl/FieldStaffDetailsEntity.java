@@ -18,10 +18,10 @@ public class FieldStaffDetailsEntity implements SuperEntity {
     private String email;
     private String phone_no;
     private String role;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "staff_id",referencedColumnName = "staff_id")
     private StaffEntity staff;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "field_code",referencedColumnName = "field_code")
     private FieldEntity field;
 }
