@@ -1,8 +1,10 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
 import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.StaffNotFoundException;
 import lk.ijse.greenshadow.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,18 @@ public class VehicleController {
         return vehicleService.loadAllVehicles();
     }
 
+    @PatchMapping(value = "/{vehicle_code}")
+    public ResponseEntity<Void> updateVehicles(@PathVariable("vehicle_code") String vehicleCode, @RequestBody VehicleDtoImpl vehicleDto) {
+        try {
+            vehicleService.updateVehicles(vehicleCode, vehicleDto);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (StaffNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping(value = "/{vehicle_code}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicle_code") String vehicleCode) {
         try {
@@ -44,6 +58,7 @@ public class VehicleController {
         } catch (CropNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
