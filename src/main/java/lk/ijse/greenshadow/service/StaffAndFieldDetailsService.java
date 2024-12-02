@@ -1,4 +1,10 @@
 package lk.ijse.greenshadow.service;
 
-public interface StaffAndFieldDetails {
+import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
+
+import java.util.List;
+
+public interface StaffAndFieldDetailsService {
+    void saveDetails(StaffFiledDtoImpl staffFiledDto);
+    List<StaffFiledDtoImpl> loadAllStaffDetails();
 }
