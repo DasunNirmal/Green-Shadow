@@ -55,7 +55,7 @@ public class StaffController {
     }
 
     @DeleteMapping(value = "/{staff_id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable("staff_id") String staffID) {
+    public ResponseEntity<Void> deleteStaff(@PathVariable("staff_id") String staffID) {
         try {
             staffService.deleteStaff(staffID);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
