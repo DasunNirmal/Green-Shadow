@@ -1,4 +1,6 @@
 package lk.ijse.greenshadow.dto;
 
-public interface StaffFieldStatus {
+import java.io.Serializable;
+
+public interface StaffFieldStatus extends Serializable, SuperDto {
 }
