@@ -1,4 +1,11 @@
 package lk.ijse.greenshadow.service;
 
-public class VehicleService {
+import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
+
+import java.util.List;
+
+public interface VehicleService {
+    void saveVehicle(VehicleDtoImpl vehicleDto);
+    List<VehicleDtoImpl> loadAllVehicles();
+    void deleteVehicle(String vehicleCode);
 }
