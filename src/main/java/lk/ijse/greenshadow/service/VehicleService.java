@@ -8,4 +8,5 @@ public interface VehicleService {
     void saveVehicle(VehicleDtoImpl vehicleDto);
     List<VehicleDtoImpl> loadAllVehicles();
     void deleteVehicle(String vehicleCode);
+    void updateVehicles(String vehicleCode, VehicleDtoImpl vehicleDto);
 }
