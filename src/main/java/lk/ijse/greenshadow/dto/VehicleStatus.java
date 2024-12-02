@@ -1,4 +1,6 @@
 package lk.ijse.greenshadow.dto;
 
-public interface VehicleStatus {
+import java.io.Serializable;
+
+public interface VehicleStatus extends Serializable, SuperDto {
 }
