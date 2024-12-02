@@ -7,4 +7,5 @@ import java.util.List;
 public interface StaffAndFieldDetailsService {
     void saveDetails(StaffFiledDtoImpl staffFiledDto);
     List<StaffFiledDtoImpl> loadAllStaffDetails();
+    void deleteDetails(String detailsId);
 }
