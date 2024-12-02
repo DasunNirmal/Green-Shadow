@@ -9,4 +9,5 @@ public interface StaffAndFieldDetailsService {
     List<StaffFiledDtoImpl> loadAllStaffDetails();
     void deleteDetails(String detailsId);
     void updateDetails(String detailsID, StaffFiledDtoImpl detailsDto);
+    StaffFiledDtoImpl getDetailsByID(String staffID);
 }
