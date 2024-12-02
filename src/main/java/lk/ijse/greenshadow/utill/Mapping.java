@@ -1,13 +1,7 @@
 package lk.ijse.greenshadow.utill;
 
-import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
-import lk.ijse.greenshadow.dto.impl.FieldDtoImpl;
-import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
-import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
-import lk.ijse.greenshadow.entity.impl.CropEntity;
-import lk.ijse.greenshadow.entity.impl.FieldEntity;
-import lk.ijse.greenshadow.entity.impl.FieldStaffDetailsEntity;
-import lk.ijse.greenshadow.entity.impl.StaffEntity;
+import lk.ijse.greenshadow.dto.impl.*;
+import lk.ijse.greenshadow.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +56,16 @@ public class Mapping {
     }
     public List<StaffFiledDtoImpl> toAllStaffFiledDetails(List<FieldStaffDetailsEntity> detailsEntities) {
         return modelMapper.map(detailsEntities, new TypeToken<List<StaffFiledDtoImpl>>() {}.getType());
+    }
+
+    /*for vehicle mapping*/
+    public VehicleEntity toVehicleEntity(VehicleDtoImpl vehicleDto) {
+        return modelMapper.map(vehicleDto, VehicleEntity.class);
+    }
+    public VehicleDtoImpl toVehicleDto(VehicleEntity vehicleEntity) {
+        return modelMapper.map(vehicleEntity, VehicleDtoImpl.class);
+    }
+    public List<VehicleDtoImpl> toAllVehicles(List<VehicleEntity> vehicleEntities) {
+        return modelMapper.map(vehicleEntities, new TypeToken<List<VehicleDtoImpl>>() {}.getType());
     }
 }
