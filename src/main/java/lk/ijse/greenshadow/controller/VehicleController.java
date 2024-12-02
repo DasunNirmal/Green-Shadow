@@ -38,6 +38,12 @@ public class VehicleController {
         return vehicleService.loadAllVehicles();
     }
 
+    @GetMapping(value = "/{vehicle_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public VehicleDtoImpl searchVehicleByID(@PathVariable("vehicle_code") String vehicleCode) {
+        System.out.println(vehicleCode);
+        return vehicleService.getVehicleByID(vehicleCode);
+    }
+    
     @PatchMapping(value = "/{vehicle_code}")
     public ResponseEntity<Void> updateVehicles(@PathVariable("vehicle_code") String vehicleCode, @RequestBody VehicleDtoImpl vehicleDto) {
         try {
