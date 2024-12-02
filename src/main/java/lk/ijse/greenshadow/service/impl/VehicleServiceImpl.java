@@ -73,4 +73,14 @@ public class VehicleServiceImpl implements VehicleService {
             vehicle.get().setVehicle_code(vehicleCode);
         }
     }
+
+    @Override
+    public VehicleDtoImpl getVehicleByID(String vehicleCode) {
+        if (vehicleDao.existsById(vehicleCode)) {
+            VehicleEntity vehicle = vehicleDao.getReferenceById(vehicleCode);
+            return mapping.toVehicleDto(vehicle);
+        } else {
+            throw new VehicleNotFoundException("Vehicle Not Found");
+        }
+    }
 }
