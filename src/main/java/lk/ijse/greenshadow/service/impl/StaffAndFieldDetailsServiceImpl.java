@@ -77,4 +77,14 @@ public class StaffAndFieldDetailsServiceImpl implements StaffAndFieldDetailsServ
             }
         }
     }
+
+    @Override
+    public StaffFiledDtoImpl getDetailsByID(String staffID) {
+        if (staffFieldDetailsDao.existsById(staffID)) {
+            FieldStaffDetailsEntity details = staffFieldDetailsDao.getReferenceById(staffID);
+            return mapping.toStaffFiledDetailsDto(details);
+        } else {
+            throw new DetailsNotFoundException("Details not found");
+        }
+    }
 }
