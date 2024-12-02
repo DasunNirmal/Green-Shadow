@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.impl.StaffDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffFiledDtoImpl;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
@@ -41,6 +42,18 @@ public class StaffAndFieldDetailsController {
     public ResponseEntity<Void> deleteDetails(@PathVariable("staff_id") String details_id) {
         try {
             staffAndFieldDetailsService.deleteDetails(details_id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (StaffNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping(value = "/{staff_id}")
+    public ResponseEntity<Void> updateDetails(@PathVariable("staff_id") String detailsID, @RequestBody StaffFiledDtoImpl detailsDto) {
+        try {
+            staffAndFieldDetailsService.updateDetails(detailsID, detailsDto);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (StaffNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
