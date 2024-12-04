@@ -79,4 +79,48 @@ public class Mapping {
     public List<EquipmentDtoImpl> toAllEquipments(List<EquipmentEntity> equipmentEntities) {
         return modelMapper.map(equipmentEntities, new TypeToken<List<EquipmentDtoImpl>>() {}.getType());
     }
+
+    /*for logs mapping*/
+    public MonitoringLogEntity toLogEntity(LogDtoImpl logDto) {
+        return modelMapper.map(logDto, MonitoringLogEntity.class);
+    }
+    public LogDtoImpl toLogDto(MonitoringLogEntity monitoringLogEntity) {
+        return modelMapper.map(monitoringLogEntity, LogDtoImpl.class);
+    }
+    public List<LogDtoImpl> toAllLogs(List<MonitoringLogEntity> monitoringLogEntities) {
+        return modelMapper.map(monitoringLogEntities, new TypeToken<List<LogDtoImpl>>() {}.getType());
+    }
+
+    /*for crop logs mapping*/
+    public CropMonitoringDetails toCropLogEntity(CropLogDtoImpl cropLogDto) {
+        return modelMapper.map(cropLogDto, CropMonitoringDetails.class);
+    }
+    public CropLogDtoImpl toCropLogDto(CropMonitoringDetails cropMonitoringDetails) {
+        return modelMapper.map(cropMonitoringDetails, CropLogDtoImpl.class);
+    }
+    public List<CropLogDtoImpl> toAllCropLogs(List<CropMonitoringDetails> cropMonitoringDetails) {
+        return modelMapper.map(cropMonitoringDetails, new TypeToken<List<CropLogDtoImpl>>() {}.getType());
+    }
+
+    /*for field logs mapping*/
+    public FieldMonitoringDetails toFieldLogEntity(FieldLogDtoImpl fieldLogDto) {
+        return modelMapper.map(fieldLogDto, FieldMonitoringDetails.class);
+    }
+    public FieldLogDtoImpl toFieldLogDto(FieldMonitoringDetails fieldMonitoringDetails) {
+        return modelMapper.map(fieldMonitoringDetails, FieldLogDtoImpl.class);
+    }
+    public List<FieldLogDtoImpl> toAllFieldLogs(List<FieldMonitoringDetails> fieldMonitoringDetails) {
+        return modelMapper.map(fieldMonitoringDetails, new TypeToken<List<FieldLogDtoImpl>>() {}.getType());
+    }
+
+    /*for field logs mapping*/
+    public StaffMonitoringDetails toStaffLogEntity(StaffLogDtoImpl staffLogDto) {
+        return modelMapper.map(staffLogDto, StaffMonitoringDetails.class);
+    }
+    public StaffLogDtoImpl toStaffLogDto(StaffMonitoringDetails staffMonitoringDetails) {
+        return modelMapper.map(staffMonitoringDetails, StaffLogDtoImpl.class);
+    }
+    public List<StaffLogDtoImpl> toAllStaffLogs(List<StaffMonitoringDetails> staffMonitoringDetails) {
+        return modelMapper.map(staffMonitoringDetails, new TypeToken<List<StaffLogDtoImpl>>() {}.getType());
+    }
 }
