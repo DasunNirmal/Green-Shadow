@@ -16,12 +16,12 @@ import java.awt.*;
 public class FieldMonitoringDetails implements SuperEntity {
     @Id
     private String details_id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "field_code",referencedColumnName = "field_code")
     private FieldEntity field;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "log_code",referencedColumnName = "log_code")
     private MonitoringLogEntity monitoringLog;
     private String field_name;
-    private Point field_location;
+    private String field_location;
 }
