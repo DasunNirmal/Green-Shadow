@@ -1,5 +1,7 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
+import lk.ijse.greenshadow.dto.impl.LogDtoImpl;
 import lk.ijse.greenshadow.service.LogService;
 import lk.ijse.greenshadow.utill.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
@@ -34,5 +37,10 @@ public class LogsController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<LogDtoImpl> getAllLOgs() {
+        return logService.loadAllLogs();
     }
 }
