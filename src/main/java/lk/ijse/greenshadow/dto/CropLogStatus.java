@@ -1,4 +1,6 @@
 package lk.ijse.greenshadow.dto;
 
-public interface CropLogDto {
+import java.io.Serializable;
+
+public interface CropLogStatus extends Serializable, SuperDto {
 }
