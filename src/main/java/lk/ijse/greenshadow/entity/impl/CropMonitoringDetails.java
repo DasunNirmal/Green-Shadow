@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class CropMonitoringDetails implements SuperEntity {
     @Id
     private String details_id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "crop_code",referencedColumnName = "crop_code")
     private CropEntity crops;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "log_code",referencedColumnName = "log_code")
     private MonitoringLogEntity monitoringLog;
     private String details;
