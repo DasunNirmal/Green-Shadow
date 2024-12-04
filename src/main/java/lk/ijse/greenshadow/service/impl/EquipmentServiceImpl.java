@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,5 +57,10 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
 
         equipmentDao.save(equipmentEntity);
+    }
+
+    @Override
+    public List<EquipmentDtoImpl> loadAllEquipments() {
+        return mapping.toAllEquipments(equipmentDao.findAll());
     }
 }
