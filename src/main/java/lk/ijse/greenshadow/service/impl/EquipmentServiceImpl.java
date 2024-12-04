@@ -4,10 +4,12 @@ import lk.ijse.greenshadow.dao.EquipmentDao;
 import lk.ijse.greenshadow.dao.FieldDao;
 import lk.ijse.greenshadow.dao.StaffDao;
 import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
+import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
 import lk.ijse.greenshadow.entity.impl.EquipmentEntity;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.entity.impl.StaffEntity;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.EquipmentNotFoundException;
 import lk.ijse.greenshadow.service.EquipmentService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +105,16 @@ public class EquipmentServiceImpl implements EquipmentService {
             equipment.get().setRole(equipmentDto.getRole());
             equipment.get().setPhone_no(equipmentDto.getPhone_no());
             equipment.get().setEq_code(equipmentCode);
+        }
+    }
+
+    @Override
+    public EquipmentDtoImpl getEquipmentByID(String equipmentCode) {
+        if (equipmentDao.existsById(equipmentCode)) {
+            EquipmentEntity equipment = equipmentDao.getReferenceById(equipmentCode);
+            return mapping.toEquipmentDto(equipment);
+        } else {
+            throw new EquipmentNotFoundException("Equipment Not Found");
         }
     }
 }
