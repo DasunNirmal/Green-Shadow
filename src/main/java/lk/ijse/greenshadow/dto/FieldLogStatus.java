@@ -1,4 +1,6 @@
 package lk.ijse.greenshadow.dto;
 
-public interface FieldLogDtoImpl {
+import java.io.Serializable;
+
+public interface FieldLogStatus extends Serializable, SuperDto {
 }
