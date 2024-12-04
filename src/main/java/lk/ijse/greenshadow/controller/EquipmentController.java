@@ -1,6 +1,7 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
+import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
@@ -26,5 +29,10 @@ public class EquipmentController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<EquipmentDtoImpl> getAllEquipments() {
+        return equipmentService.loadAllEquipments();
     }
 }
