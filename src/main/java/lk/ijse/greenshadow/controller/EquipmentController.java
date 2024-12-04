@@ -4,6 +4,7 @@ import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
 import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.StaffNotFoundException;
 import lk.ijse.greenshadow.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,18 @@ public class EquipmentController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDtoImpl> getAllEquipments() {
         return equipmentService.loadAllEquipments();
+    }
+
+    @PatchMapping(value = "/{eq_code}")
+    public ResponseEntity<Void> updateEquipments(@PathVariable("eq_code") String equipmentCode, @RequestBody EquipmentDtoImpl equipmentDto) {
+        try {
+            equipmentService.updateEquipments(equipmentCode, equipmentDto);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (StaffNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping(value = "/{eq_code}")
