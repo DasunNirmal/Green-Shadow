@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EquipmentDaoImpl implements SuperDto, EquipmentStatus {
+public class EquipmentDtoImpl implements SuperDto, EquipmentStatus {
     private String eq_code;
     private String name;
     private String type;
