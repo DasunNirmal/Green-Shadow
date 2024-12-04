@@ -2,6 +2,7 @@ package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
 import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,18 @@ public class EquipmentController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EquipmentDtoImpl> getAllEquipments() {
         return equipmentService.loadAllEquipments();
+    }
+
+    @DeleteMapping(value = "/{eq_code}")
+    public ResponseEntity<Void> deleteEquipment(@PathVariable("eq_code") String equipmentCode) {
+        try {
+            equipmentService.deleteEquipment(equipmentCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (CropNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
