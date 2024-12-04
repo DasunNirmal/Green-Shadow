@@ -7,6 +7,7 @@ import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
 import lk.ijse.greenshadow.entity.impl.EquipmentEntity;
 import lk.ijse.greenshadow.entity.impl.FieldEntity;
 import lk.ijse.greenshadow.entity.impl.StaffEntity;
+import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.service.EquipmentService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,15 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<EquipmentDtoImpl> loadAllEquipments() {
         return mapping.toAllEquipments(equipmentDao.findAll());
+    }
+
+    @Override
+    public void deleteEquipment(String equipmentCode) {
+        Optional<EquipmentEntity> equipmentFound = equipmentDao.findById(equipmentCode);
+        if (equipmentFound.isEmpty()) {
+            throw new DataPersistException("Equipment Not Found");
+        } else {
+            equipmentDao.deleteById(equipmentCode);
+        }
     }
 }
