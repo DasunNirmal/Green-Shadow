@@ -1,4 +1,6 @@
 package lk.ijse.greenshadow.dto;
 
-public interface LogDtoImpl {
+import java.io.Serializable;
+
+public interface LogStatus extends Serializable, SuperDto {
 }
