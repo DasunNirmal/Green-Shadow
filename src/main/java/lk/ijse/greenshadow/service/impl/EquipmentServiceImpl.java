@@ -74,4 +74,35 @@ public class EquipmentServiceImpl implements EquipmentService {
             equipmentDao.deleteById(equipmentCode);
         }
     }
+
+    @Override
+    public void updateEquipments(String equipmentCode, EquipmentDtoImpl equipmentDto) {
+        Optional<EquipmentEntity> equipment = equipmentDao.findById(equipmentCode);
+        if (equipment.isPresent()) {
+            equipment.get().setName(equipmentDto.getName());
+            equipment.get().setType(equipmentDto.getType());
+            equipment.get().setStatus(equipmentDto.getStatus());
+
+            if (equipmentDto.getStaff_id() != null) {
+                Optional<StaffEntity> staff = staffDao.findById(equipmentDto.getStaff_id());
+                equipment.get().setStaff(staff.orElse(null)); /*set staff if provided or null*/
+            } else {
+                equipment.get().setStaff(null);
+            }
+
+            if (equipmentDto.getField_code() != null) {
+                Optional<FieldEntity> field = fieldDao.findById(equipmentDto.getField_code());
+                equipment.get().setField(field.orElse(null)); /*set field if provided or null*/
+            } else {
+                equipment.get().setField(null);
+            }
+
+            equipment.get().setField_name(equipmentDto.getField_name());
+            equipment.get().setField_location(equipmentDto.getField_location());
+            equipment.get().setFirst_name(equipmentDto.getFirst_name());
+            equipment.get().setRole(equipmentDto.getRole());
+            equipment.get().setPhone_no(equipmentDto.getPhone_no());
+            equipment.get().setEq_code(equipmentCode);
+        }
+    }
 }
