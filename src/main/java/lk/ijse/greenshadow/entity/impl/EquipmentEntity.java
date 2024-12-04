@@ -1,6 +1,10 @@
 package lk.ijse.greenshadow.entity.impl;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lk.ijse.greenshadow.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,11 +21,11 @@ public class EquipmentEntity implements SuperEntity {
     private String name;
     private String type;
     private String status;
-    @ManyToOne
-    @JoinColumn(name = "staff_id",nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "staff_id",nullable = true)
     private StaffEntity staff;
-    @ManyToOne
-    @JoinColumn(name = "field_code",nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "field_code",nullable = true)
     private FieldEntity field;
     private String field_name;
     private String field_location;
