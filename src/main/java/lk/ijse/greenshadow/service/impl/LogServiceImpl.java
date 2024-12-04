@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class LogServiceImpl implements LogService {
@@ -25,6 +27,11 @@ public class LogServiceImpl implements LogService {
         if (save == null) {
             throw new DataPersistException("Failed to save log");
         }
+    }
+
+    @Override
+    public List<LogDtoImpl> loadAllLogs() {
+        return mapping.toAllLogs(logDao.findAll());
     }
 
     private LogDtoImpl getLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
