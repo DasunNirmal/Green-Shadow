@@ -38,6 +38,11 @@ public class EquipmentController {
         return equipmentService.loadAllEquipments();
     }
 
+    @GetMapping(value = "/{eq_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public EquipmentDtoImpl searchEquipmentByID(@PathVariable("eq_code") String equipmentCode) {
+        return equipmentService.getEquipmentByID(equipmentCode);
+    }
+
     @PatchMapping(value = "/{eq_code}")
     public ResponseEntity<Void> updateEquipments(@PathVariable("eq_code") String equipmentCode, @RequestBody EquipmentDtoImpl equipmentDto) {
         try {
