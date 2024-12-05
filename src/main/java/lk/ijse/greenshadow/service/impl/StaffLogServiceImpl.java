@@ -89,6 +89,16 @@ public class StaffLogServiceImpl implements StaffLogService {
         }
     }
 
+    @Override
+    public StaffLogDtoImpl getStaffLogByID(String logCode) {
+        if (staffLogDao.existsById(logCode)) {
+            StaffMonitoringDetails log = staffLogDao.getReferenceById(logCode);
+            return mapping.toStaffLogDto(log);
+        } else {
+            throw new StaffLogNotFoundException("Log Details not found");
+        }
+    }
+
     private StaffLogDtoImpl getDetails(String logCode, String base67Img, String details, String logDate, String staffId, String firstName, String phoneNo) {
         StaffLogDtoImpl dto = new StaffLogDtoImpl();
         dto.setDetail_id(logCode);
