@@ -44,6 +44,21 @@ public class FieldLogsController {
         return fieldLogService.loadAllDetails();
     }
 
+    @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date, @RequestPart("field_code") String field_code,
+                                            @RequestPart("field_name") String field_name, @RequestPart("field_location") String field_location,@PathVariable("log_code") String log_code) {
+        String base67Img = "";
+
+        try {
+            byte[] imageBytes = img.getBytes();
+            base67Img = AppUtil.imageToBase64(imageBytes);
+            fieldLogService.updateDetails(log_code,base67Img,details,log_date,field_code,field_name,field_location);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @DeleteMapping(value = "/{log_code}")
     public ResponseEntity<Void> deleteDetails(@PathVariable("log_code") String detailsID) {
         try {
