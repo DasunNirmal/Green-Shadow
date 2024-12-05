@@ -82,6 +82,7 @@ public class FieldLogServiceImpl implements FieldLogService {
             }
             filedLog.get().setField_name(dto.getField_name());
             filedLog.get().setField_location(dto.getField_location());
+            filedLog.get().setDetails_id(logCode);
         }
     }
 

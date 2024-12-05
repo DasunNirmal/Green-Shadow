@@ -51,8 +51,8 @@ public class LogsController {
     }
 
     @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateLogs(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date, @RequestPart("field_code") String field_code,
-                                         @RequestPart("field_name") String field_name, @RequestPart("field_location") String field_location,@PathVariable("log_code") String log_code) {
+    public ResponseEntity<Void> updateLogs(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date, @RequestPart("code") String field_code,
+                                         @RequestPart("name") String field_name, @RequestPart("additional") String field_location,@PathVariable("log_code") String log_code) {
         String base67Img = "";
 
         try {
