@@ -6,9 +6,12 @@ import lk.ijse.greenshadow.dao.StaffLogDao;
 import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffLogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
+import lk.ijse.greenshadow.entity.impl.StaffEntity;
 import lk.ijse.greenshadow.entity.impl.StaffMonitoringDetails;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.LogNotFoundException;
 import lk.ijse.greenshadow.exception.StaffLogNotFoundException;
+import lk.ijse.greenshadow.exception.StaffNotFoundException;
 import lk.ijse.greenshadow.service.StaffLogService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,30 @@ public class StaffLogServiceImpl implements StaffLogService {
             throw new StaffLogNotFoundException("Details not found");
         } else {
             staffLogDao.deleteById(detailsID);
+        }
+    }
+
+    @Override
+    public void updateDetails(String logCode, String base67Img, String details, String logDate, String staffId, String firstName, String phoneNo) {
+        StaffLogDtoImpl dto = getDetails(logCode, base67Img, details, logDate, staffId, firstName, phoneNo);
+        Optional<StaffMonitoringDetails> staffLog = staffLogDao.findById(logCode);
+        if (staffLog.isPresent()) {
+            Optional<StaffEntity> staff = staffDao.findById(staffId);
+            if (staff.isPresent()) {
+                staffLog.get().setStaff(staff.get());
+            } else {
+                throw new StaffNotFoundException("Staff not found");
+            }
+            Optional<MonitoringLogEntity> code = logDao.findById(logCode);
+            if (code.isPresent()) {
+                staffLog.get().setMonitoringLog(code.get());
+            } else {
+                throw new LogNotFoundException("Log not found");
+            }
+            staffLog.get().setFirst_name(dto.getFirst_name());
+            staffLog.get().setPhone_no(dto.getPhone_no());
+            staffLog.get().setDetails(dto.getDetails());
+            staffLog.get().setDetail_id(logCode);
         }
     }
 
