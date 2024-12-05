@@ -9,4 +9,5 @@ public interface LogService {
     List<LogDtoImpl> loadAllLogs();
     void deleteLogs(String logCode);
     void updateLogs(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation);
+    LogDtoImpl getLogByID(String logCode);
 }
