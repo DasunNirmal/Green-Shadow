@@ -9,4 +9,5 @@ public interface CropLogService {
     List<CropLogDtoImpl> loadAllDetails();
     void deleteDetails(String detailsID);
     void updateDetails(String logCode, String base67Img, String details, String logDate, String cropCode, String cropName);
+    CropLogDtoImpl getCropLogByID(String logCode);
 }

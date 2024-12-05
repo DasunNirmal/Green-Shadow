@@ -1,6 +1,7 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.CropLogDtoImpl;
+import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
 import lk.ijse.greenshadow.dto.impl.LogDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.service.CropLogService;
@@ -42,6 +43,11 @@ public class CropLogsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropLogDtoImpl> getAllDetails() {
         return cropLogService.loadAllDetails();
+    }
+
+    @GetMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CropLogDtoImpl searchCropLogsByID(@PathVariable("log_code") String logCode) {
+        return cropLogService.getCropLogByID(logCode);
     }
 
     @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
