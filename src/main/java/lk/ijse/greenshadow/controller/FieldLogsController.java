@@ -25,8 +25,8 @@ public class FieldLogsController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveDetails(@RequestPart("log_code") String log_code, @RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
-                                         @RequestPart("field_code") String field_code,
-                                         @RequestPart("field_name") String field_name, @RequestPart("field_location") String field_location) {
+                                         @RequestPart("code") String field_code,
+                                         @RequestPart("name") String field_name, @RequestPart("additional") String field_location) {
         String base67Img = "";
 
         try {

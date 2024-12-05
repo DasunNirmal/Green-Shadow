@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CropMonitoringDetails implements SuperEntity {
     @Id
     private String details_id;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "crop_code",referencedColumnName = "crop_code")
     private CropEntity crops;
     @ManyToOne(cascade = CascadeType.PERSIST)
