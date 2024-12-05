@@ -8,6 +8,7 @@ import lk.ijse.greenshadow.dto.impl.StaffLogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
 import lk.ijse.greenshadow.entity.impl.StaffMonitoringDetails;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.StaffLogNotFoundException;
 import lk.ijse.greenshadow.service.StaffLogService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,16 @@ public class StaffLogServiceImpl implements StaffLogService {
     @Override
     public List<StaffLogDtoImpl> loadAllDetails() {
         return mapping.toAllStaffLogs(staffLogDao.findAll());
+    }
+
+    @Override
+    public void deleteDetails(String detailsID) {
+        Optional<StaffMonitoringDetails> detailsFound = staffLogDao.findById(detailsID);
+        if (detailsFound.isEmpty()) {
+            throw new StaffLogNotFoundException("Details not found");
+        } else {
+            staffLogDao.deleteById(detailsID);
+        }
     }
 
     private StaffLogDtoImpl getDetails(String logCode, String base67Img, String details, String logDate, String staffId, String firstName, String phoneNo) {
