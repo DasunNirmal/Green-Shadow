@@ -6,6 +6,7 @@ import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.FieldMonitoringDetails;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldLogNotFoundException;
 import lk.ijse.greenshadow.service.FieldLogService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,16 @@ public class FieldLogServiceImpl implements FieldLogService {
     @Override
     public List<FieldLogDtoImpl> loadAllDetails() {
         return mapping.toAllFieldLogs(fieldLogDao.findAll());
+    }
+
+    @Override
+    public void deleteDetails(String detailsID) {
+        Optional<FieldMonitoringDetails> detailsFound = fieldLogDao.findById(detailsID);
+        if (detailsFound.isEmpty()) {
+            throw new FieldLogNotFoundException("Details not found");
+        } else {
+            fieldLogDao.deleteById(detailsID);
+        }
     }
 
     private FieldLogDtoImpl getFieldLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
