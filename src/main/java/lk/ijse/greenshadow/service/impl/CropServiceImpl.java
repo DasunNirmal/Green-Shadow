@@ -69,6 +69,7 @@ public class CropServiceImpl implements CropService {
             } else {
                 throw new FieldNotFoundException("Field not found");
             }
+            crop.get().setCrop_code(cropCode);
         }
     }
 
