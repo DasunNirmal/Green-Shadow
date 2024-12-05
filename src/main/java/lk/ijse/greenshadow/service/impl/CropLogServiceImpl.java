@@ -88,6 +88,16 @@ public class CropLogServiceImpl implements CropLogService {
         }
     }
 
+    @Override
+    public CropLogDtoImpl getCropLogByID(String logCode) {
+        if (cropLogDao.existsById(logCode)) {
+            CropMonitoringDetails log = cropLogDao.getReferenceById(logCode);
+            return mapping.toCropLogDto(log);
+        } else {
+            throw new CropLogNotFoundException("Crop log not found");
+        }
+    }
+
     private CropLogDtoImpl getDetails(String logCode, String base67Img, String details, String logDate, String cropCode, String cropName) {
         CropLogDtoImpl dto = new CropLogDtoImpl();
         dto.setDetails_id(logCode);
