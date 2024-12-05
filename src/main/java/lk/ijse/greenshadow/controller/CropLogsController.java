@@ -1,8 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.CropLogDtoImpl;
-import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
-import lk.ijse.greenshadow.dto.impl.LogDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.service.CropLogService;
 import lk.ijse.greenshadow.utill.AppUtil;
