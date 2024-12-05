@@ -1,7 +1,6 @@
 package lk.ijse.greenshadow.service;
 
 import lk.ijse.greenshadow.dto.impl.CropLogDtoImpl;
-
 import java.util.List;
 
 public interface CropLogService {
