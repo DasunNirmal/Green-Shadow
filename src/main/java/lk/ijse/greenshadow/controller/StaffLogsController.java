@@ -43,6 +43,22 @@ public class StaffLogsController {
         return staffLogService.loadAllDetails();
     }
 
+    @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
+                                            @RequestPart("code") String staff_id,
+                                            @RequestPart("name") String first_name, @RequestPart("additional") String phone_no,@PathVariable("log_code") String log_code) {
+        String base67Img = "";
+
+        try {
+            byte[] imageBytes = img.getBytes();
+            base67Img = AppUtil.imageToBase64(imageBytes);
+            staffLogService.updateDetails(log_code,base67Img,details,log_date,staff_id,first_name,phone_no);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @DeleteMapping(value = "/{log_code}")
     public ResponseEntity<Void> deleteDetails(@PathVariable("log_code") String detailsID) {
         try {
