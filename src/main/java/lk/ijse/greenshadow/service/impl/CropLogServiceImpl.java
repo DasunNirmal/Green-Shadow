@@ -7,6 +7,7 @@ import lk.ijse.greenshadow.dto.impl.CropLogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.CropEntity;
 import lk.ijse.greenshadow.entity.impl.CropMonitoringDetails;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
+import lk.ijse.greenshadow.exception.CropLogNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.service.CropLogService;
 import lk.ijse.greenshadow.utill.Mapping;
@@ -50,6 +51,16 @@ public class CropLogServiceImpl implements CropLogService {
     @Override
     public List<CropLogDtoImpl> loadAllDetails() {
         return cropLogDao.findAllCropLogs();
+    }
+
+    @Override
+    public void deleteDetails(String detailsID) {
+        Optional<CropMonitoringDetails> detailsFound = cropLogDao.findById(detailsID);
+        if (detailsFound.isEmpty()) {
+            throw new CropLogNotFoundException("Details not found");
+        } else {
+            cropLogDao.deleteById(detailsID);
+        }
     }
 
     private CropLogDtoImpl getDetails(String logCode, String base67Img, String details, String logDate, String cropCode, String cropName) {
