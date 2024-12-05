@@ -9,4 +9,5 @@ public interface FieldLogService {
     List<FieldLogDtoImpl> loadAllDetails();
     void deleteDetails(String detailsID);
     void updateDetails(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation);
+    FieldLogDtoImpl getFieldLogByID(String logCode);
 }
