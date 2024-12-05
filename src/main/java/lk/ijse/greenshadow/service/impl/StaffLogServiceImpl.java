@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.service.impl;
 import lk.ijse.greenshadow.dao.LogDao;
 import lk.ijse.greenshadow.dao.StaffDao;
 import lk.ijse.greenshadow.dao.StaffLogDao;
+import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
 import lk.ijse.greenshadow.dto.impl.StaffLogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
 import lk.ijse.greenshadow.entity.impl.StaffMonitoringDetails;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +44,11 @@ public class StaffLogServiceImpl implements StaffLogService {
         } else {
             throw new DataPersistException("Log with code " + logCode + " not found");
         }
+    }
+
+    @Override
+    public List<StaffLogDtoImpl> loadAllDetails() {
+        return mapping.toAllStaffLogs(staffLogDao.findAll());
     }
 
     private StaffLogDtoImpl getDetails(String logCode, String base67Img, String details, String logDate, String staffId, String firstName, String phoneNo) {
