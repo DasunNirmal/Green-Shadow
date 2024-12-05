@@ -46,6 +46,18 @@ public class LogServiceImpl implements LogService {
         }
     }
 
+    @Override
+    public void updateLogs(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
+        LogDtoImpl logDto = getLogDto(logCode,base67Img,details,logDate,fieldCode,fieldName,fieldLocation);
+        Optional<MonitoringLogEntity> logFound = logDao.findById(logCode);
+        if (logFound.isPresent()) {
+            logFound.get().setImg(logDto.getImg());
+            logFound.get().setDetails(logDto.getDetails());
+            logFound.get().setLog_date(logDto.getLog_date());
+            logFound.get().setLog_code(logDto.getLog_code());
+        }
+    }
+
     private LogDtoImpl getLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
         LogDtoImpl logDto = new LogDtoImpl();
         logDto.setLog_code(logCode);
