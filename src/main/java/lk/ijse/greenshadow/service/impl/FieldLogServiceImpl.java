@@ -85,6 +85,16 @@ public class FieldLogServiceImpl implements FieldLogService {
         }
     }
 
+    @Override
+    public FieldLogDtoImpl getFieldLogByID(String logCode) {
+        if (fieldLogDao.existsById(logCode)) {
+            FieldMonitoringDetails log = fieldLogDao.getReferenceById(logCode);
+            return mapping.toFieldLogDto(log);
+        } else {
+            throw new FieldLogNotFoundException("Log Details not found");
+        }
+    }
+
     private FieldLogDtoImpl getFieldLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
         FieldLogDtoImpl fieldLogDto = new FieldLogDtoImpl();
         fieldLogDto.setDetails_id(logCode);
