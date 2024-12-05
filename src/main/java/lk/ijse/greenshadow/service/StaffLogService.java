@@ -10,4 +10,5 @@ public interface StaffLogService {
     List<StaffLogDtoImpl> loadAllDetails();
     void deleteDetails(String detailsID);
     void updateDetails(String logCode, String base67Img, String details, String logDate, String staffId, String firstName, String phoneNo);
+    StaffLogDtoImpl getStaffLogByID(String logCode);
 }
