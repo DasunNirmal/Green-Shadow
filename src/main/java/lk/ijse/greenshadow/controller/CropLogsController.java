@@ -25,7 +25,8 @@ public class CropLogsController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveDetails(@RequestPart("log_code") String log_code, @RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
                                             @RequestPart("code") String crop_code,
-                                            @RequestPart("name") String crop_name,@RequestPart("additional") String crop_location) {        String base67Img = "";
+                                            @RequestPart("name") String crop_name,@RequestPart("additional") String crop_location) {
+        String base67Img = "";
 
         try {
             byte[] imageBytes = img.getBytes();
@@ -41,6 +42,23 @@ public class CropLogsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropLogDtoImpl> getAllDetails() {
         return cropLogService.loadAllDetails();
+    }
+
+    @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
+                                            @RequestPart("code") String crop_code,
+                                            @RequestPart("name") String crop_name,@RequestPart("additional") String crop_location,@PathVariable("log_code") String log_code) {
+        String base67Img = "";
+
+        try {
+            byte[] imageBytes = img.getBytes();
+            base67Img = AppUtil.imageToBase64(imageBytes);
+            System.out.println(log_code);
+            cropLogService.updateDetails(log_code,base67Img,details,log_date,crop_code,crop_name);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping(value = "/{log_code}")
