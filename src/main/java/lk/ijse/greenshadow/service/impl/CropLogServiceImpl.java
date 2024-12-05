@@ -8,7 +8,9 @@ import lk.ijse.greenshadow.entity.impl.CropEntity;
 import lk.ijse.greenshadow.entity.impl.CropMonitoringDetails;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
 import lk.ijse.greenshadow.exception.CropLogNotFoundException;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.LogNotFoundException;
 import lk.ijse.greenshadow.service.CropLogService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,29 @@ public class CropLogServiceImpl implements CropLogService {
             throw new CropLogNotFoundException("Details not found");
         } else {
             cropLogDao.deleteById(detailsID);
+        }
+    }
+
+    @Override
+    public void updateDetails(String logCode, String base67Img, String details, String logDate, String cropCode, String cropName) {
+        CropLogDtoImpl dto = getDetails(logCode,base67Img,details,logDate,cropCode,cropName);
+        Optional<CropMonitoringDetails> cropLog = cropLogDao.findById(logCode);
+        if (cropLog.isPresent()) {
+            Optional<CropEntity> crop = cropDao.findById(cropCode);
+            if (crop.isPresent()) {
+                cropLog.get().setCrops(crop.get());
+            } else {
+                throw new CropNotFoundException("Crop not found");
+            }
+            Optional<MonitoringLogEntity> code = logDao.findById(logCode);
+            if (code.isPresent()) {
+                cropLog.get().setMonitoringLog(code.get());
+            } else {
+                throw new LogNotFoundException("Log not found");
+            }
+            cropLog.get().setDetails(dto.getDetails());
+            cropLog.get().setCrop_name(dto.getCrop_name());
+            cropLog.get().setDetails_id(logCode);
         }
     }
 
