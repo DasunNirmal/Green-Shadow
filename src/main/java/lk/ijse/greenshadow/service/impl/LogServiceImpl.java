@@ -58,6 +58,16 @@ public class LogServiceImpl implements LogService {
         }
     }
 
+    @Override
+    public LogDtoImpl getLogByID(String logCode) {
+        if (logDao.existsById(logCode)) {
+            MonitoringLogEntity log = logDao.getReferenceById(logCode);
+            return mapping.toLogDto(log);
+        } else {
+            throw new LogNotFoundException("Log not found");
+        }
+    }
+
     private LogDtoImpl getLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
         LogDtoImpl logDto = new LogDtoImpl();
         logDto.setLog_code(logCode);
