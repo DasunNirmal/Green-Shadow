@@ -4,6 +4,7 @@ import lk.ijse.greenshadow.dao.LogDao;
 import lk.ijse.greenshadow.dto.impl.LogDtoImpl;
 import lk.ijse.greenshadow.entity.impl.MonitoringLogEntity;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.LogNotFoundException;
 import lk.ijse.greenshadow.service.LogService;
 import lk.ijse.greenshadow.utill.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,6 +34,16 @@ public class LogServiceImpl implements LogService {
     @Override
     public List<LogDtoImpl> loadAllLogs() {
         return mapping.toAllLogs(logDao.findAll());
+    }
+
+    @Override
+    public void deleteLogs(String logCode) {
+        Optional<MonitoringLogEntity> logFound = logDao.findById(logCode);
+        if (logFound.isEmpty()) {
+            throw new LogNotFoundException("Log not found");
+        } else {
+            logDao.deleteById(logCode);
+        }
     }
 
     private LogDtoImpl getLogDto(String logCode, String base67Img, String details, String logDate, String fieldCode, String fieldName, String fieldLocation) {
