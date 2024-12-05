@@ -2,6 +2,7 @@ package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.CropLogDtoImpl;
 import lk.ijse.greenshadow.dto.impl.LogDtoImpl;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.service.CropLogService;
 import lk.ijse.greenshadow.utill.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,17 @@ public class CropLogsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CropLogDtoImpl> getAllDetails() {
         return cropLogService.loadAllDetails();
+    }
+
+    @DeleteMapping(value = "/{log_code}")
+    public ResponseEntity<Void> deleteDetails(@PathVariable("log_code") String detailsID) {
+        try {
+            cropLogService.deleteDetails(detailsID);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (CropNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
