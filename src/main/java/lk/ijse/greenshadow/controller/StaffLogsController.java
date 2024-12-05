@@ -43,6 +43,11 @@ public class StaffLogsController {
         return staffLogService.loadAllDetails();
     }
 
+    @GetMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StaffLogDtoImpl searchStaffLogsByID(@PathVariable("log_code") String logCode) {
+        return staffLogService.getStaffLogByID(logCode);
+    }
+
     @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
                                             @RequestPart("code") String staff_id,
