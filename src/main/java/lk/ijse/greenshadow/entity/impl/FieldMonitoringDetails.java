@@ -16,7 +16,7 @@ import java.awt.*;
 public class FieldMonitoringDetails implements SuperEntity {
     @Id
     private String details_id;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "field_code",referencedColumnName = "field_code")
     private FieldEntity field;
     @ManyToOne
