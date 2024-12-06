@@ -123,4 +123,15 @@ public class Mapping {
     public List<StaffLogDtoImpl> toAllStaffLogs(List<StaffMonitoringDetails> staffMonitoringDetails) {
         return modelMapper.map(staffMonitoringDetails, new TypeToken<List<StaffLogDtoImpl>>() {}.getType());
     }
+
+    /*for user mapping*/
+    public UserEntity toUserEntity(UserDtoImpl userDto) {
+        return modelMapper.map(userDto, UserEntity.class);
+    }
+    public UserDtoImpl toUserDto(UserEntity userEntity) {
+        return modelMapper.map(userEntity, UserDtoImpl.class);
+    }
+    public List<UserDtoImpl> toAllUsers(List<UserEntity> userEntities) {
+        return modelMapper.map(userEntities, new TypeToken<List<UserDtoImpl>>() {}.getType());
+    }
 }
