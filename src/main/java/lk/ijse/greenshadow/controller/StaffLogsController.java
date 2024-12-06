@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,7 @@ public class StaffLogsController {
     @Autowired
     private StaffLogService staffLogService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveDetails(@RequestPart("log_code") String log_code, @RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
                                             @RequestPart("code") String staff_id,
@@ -48,6 +50,7 @@ public class StaffLogsController {
         return staffLogService.getStaffLogByID(logCode);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
                                             @RequestPart("code") String staff_id,
@@ -64,6 +67,7 @@ public class StaffLogsController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @DeleteMapping(value = "/{log_code}")
     public ResponseEntity<Void> deleteDetails(@PathVariable("log_code") String detailsID) {
         try {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveVehicles(@RequestBody VehicleDtoImpl vehicleDto) {
         try {
@@ -42,7 +44,8 @@ public class VehicleController {
         System.out.println(vehicleCode);
         return vehicleService.getVehicleByID(vehicleCode);
     }
-    
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PatchMapping(value = "/{vehicle_code}")
     public ResponseEntity<Void> updateVehicles(@PathVariable("vehicle_code") String vehicleCode, @RequestBody VehicleDtoImpl vehicleDto) {
         try {
@@ -55,6 +58,7 @@ public class VehicleController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @DeleteMapping(value = "/{vehicle_code}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicle_code") String vehicleCode) {
         try {

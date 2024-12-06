@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveStaffs(@RequestBody StaffDtoImpl staffDto) {
         try {
@@ -42,6 +44,7 @@ public class StaffController {
         return staffService.getStaffByID(staffID);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PatchMapping(value = "/{staff_id}")
     public ResponseEntity<Void> updateStaff(@PathVariable("staff_id") String staffID, @RequestBody StaffDtoImpl staffDto) {
         try {
@@ -54,6 +57,7 @@ public class StaffController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @DeleteMapping(value = "/{staff_id}")
     public ResponseEntity<Void> deleteStaff(@PathVariable("staff_id") String staffID) {
         try {

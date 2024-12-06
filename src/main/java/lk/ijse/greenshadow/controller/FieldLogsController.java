@@ -1,6 +1,5 @@
 package lk.ijse.greenshadow.controller;
 
-import lk.ijse.greenshadow.dto.impl.CropDtoImpl;
 import lk.ijse.greenshadow.dto.impl.FieldLogDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.service.FieldLogService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +23,7 @@ public class FieldLogsController {
     @Autowired
     private FieldLogService fieldLogService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveDetails(@RequestPart("log_code") String log_code, @RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date,
                                          @RequestPart("code") String field_code,
@@ -50,6 +51,7 @@ public class FieldLogsController {
         return fieldLogService.getFieldLogByID(logCode);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST')")
     @PatchMapping(value = "/{log_code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateDetails(@RequestPart("img") MultipartFile img, @RequestPart("details") String details, @RequestPart("log_date") String log_date, @RequestPart("code") String field_code,
                                             @RequestPart("name") String field_name, @RequestPart("additional") String field_location,@PathVariable("log_code") String log_code) {
@@ -65,6 +67,7 @@ public class FieldLogsController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST')")
     @DeleteMapping(value = "/{log_code}")
     public ResponseEntity<Void> deleteDetails(@PathVariable("log_code") String detailsID) {
         try {

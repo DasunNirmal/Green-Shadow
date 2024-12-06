@@ -1,7 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.impl.EquipmentDtoImpl;
-import lk.ijse.greenshadow.dto.impl.VehicleDtoImpl;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveEquipment(@RequestBody EquipmentDtoImpl equipmentDto) {
         try {
@@ -43,6 +44,7 @@ public class EquipmentController {
         return equipmentService.getEquipmentByID(equipmentCode);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PatchMapping(value = "/{eq_code}")
     public ResponseEntity<Void> updateEquipments(@PathVariable("eq_code") String equipmentCode, @RequestBody EquipmentDtoImpl equipmentDto) {
         try {
@@ -55,6 +57,7 @@ public class EquipmentController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @DeleteMapping(value = "/{eq_code}")
     public ResponseEntity<Void> deleteEquipment(@PathVariable("eq_code") String equipmentCode) {
         try {

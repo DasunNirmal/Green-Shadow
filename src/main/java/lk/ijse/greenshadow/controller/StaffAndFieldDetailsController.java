@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class StaffAndFieldDetailsController {
     @Autowired
     private StaffAndFieldDetailsService staffAndFieldDetailsService;
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveStaffs(@RequestBody StaffFiledDtoImpl staffFiledDto) {
         try {
@@ -42,6 +44,7 @@ public class StaffAndFieldDetailsController {
         return staffAndFieldDetailsService.getDetailsByID(staffID);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @DeleteMapping(value = "/{staff_id}")
     public ResponseEntity<Void> deleteDetails(@PathVariable("staff_id") String details_id) {
         try {
@@ -54,6 +57,7 @@ public class StaffAndFieldDetailsController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMINISTRATIVE')")
     @PatchMapping(value = "/{staff_id}")
     public ResponseEntity<Void> updateDetails(@PathVariable("staff_id") String detailsID, @RequestBody StaffFiledDtoImpl detailsDto) {
         try {
